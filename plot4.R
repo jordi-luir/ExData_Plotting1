@@ -28,29 +28,29 @@ loadData <- function(filename) {
     dataTMP2
 }
 
-## CREATE PLOT 1:  Plots the first graph
-createPlot1 <- function(values){
-    hist(values$Global_active_power, 
-         col= "red",
-         xlab = "Global Active Power (kilowatts)",
-         main = "Global Active Power")
-}
-
-## CREATE PLOT 2:  Plots the second graph
-createPlot2 <- function(values){
+## CREATE PLOT 4_1:  Plots the second graph
+createPlot4_1 <- function(values){
     plot(x = values$datetime, 
          y = values$Global_active_power,
          type = "l",
          col = "black",
          xlab = "",
-         ylab = "Global Active Power (Kilowatts)")
+         ylab = "Global Active Power")
 }
 
-## CREATE PLOT 3    
-##    Plots the third graph
-##    Parameters 
-##        values: Table with values read of the datafile
-createPlot3 <- function(values){
+## CREATE PLOT 4_2:  Plots the second graph
+createPlot4_2 <- function(values){
+    plot(x = values$datetime, 
+         y = values$Voltage,
+         type = "l",
+         col = "black",
+         xlab = "Datetime",
+         ylab = "Voltage")
+}
+
+
+## CREATE PLOT 4_3    
+createPlot4_3 <- function(values){
     with( values, 
           plot(x = values$datetime, y = Sub_metering_1, type = "l",
                col = "black", xlab = "", ylab = "Energy sub metering") )
@@ -59,33 +59,29 @@ createPlot3 <- function(values){
     with( values, 
           lines(x = values$datetime, y = Sub_metering_3, col = "blue") )
     legend( "topright", pch=c("_","_","_"), col=c("black", "red", "blue"),
-            legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3") )
+            legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), 
+            bty="n" )
 }
 
-## CREATE PLOT 4    
-##    Plots the fourth graph
-##    Parameters 
-##        values: Table with values read of the datafile
-createPlot4 <- function(values){
-    with( values, 
-          plot(x = values$datetime, y = Sub_metering_1, type = "l",
-          col = "black", xlab = "", ylab = "Energy sub metering") )
-    with( values, 
-          lines(x = values$datetime, y = Sub_metering_2, col = "red") )
-    with( values, 
-          lines(x = values$datetime, y = Sub_metering_3, col = "blue") )
-    legend( "topright", pch=c("_","_","_"), col=c("black", "red", "blue"),
-            legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3") )
+## CREATE PLOT 4_4:  Plots the second graph
+createPlot4_4 <- function(values){
+    plot(x = values$datetime, 
+         y = values$Global_reactive_power,
+         type = "l",
+         col = "black",
+         xlab = "Datetime",
+         ylab = "Global Reactive Power")
 }
+
 
 ## CREATE PLOT 4    
 ##    Plots the 4 graphs
 createMerge4Plots <- function(values){
     par( mfrow = c(2, 2) )
-    createPlot1( values )
-    createPlot2( values )
-    createPlot3( values )
-    createPlot4( values )
+    createPlot4_1( values )
+    createPlot4_2( values )
+    createPlot4_3( values )
+    createPlot4_4( values )
 }
 
 
@@ -103,4 +99,4 @@ dataHPC <- loadData("household_power_consumption.txt")
 ## Plots the "Plot 4"
 createMerge4Plots( dataHPC )
 ## Saves PNG to a File
-#savePng("plot4.png")
+savePng("plot4.png")
